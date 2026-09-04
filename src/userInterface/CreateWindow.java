@@ -12,8 +12,10 @@ public class CreateWindow extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
 	// Initialize frame contents
+	JTabbedPane tabPane;
+	JPanel ratioPane, resultsPane;
 	JButton calculate;
-	JLabel results;
+	JLabel results, ratioTitle, resultsTitle;
 	JTextField input1, input2;
 	
 	// Fonts
@@ -26,35 +28,51 @@ public class CreateWindow extends JFrame {
 		setTitle("QuikCalcs");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		
 		// Buttons
 		calculate = new JButton();
 		
 		// Labels
-		results = new JLabel();
+		results = new JLabel("Result: ");
+		results.setFont(font);
+		ratioTitle = new JLabel("Ratio Calculation");
+		ratioTitle.setFont(font);
+		resultsTitle = new JLabel("All Results: ");
+		resultsTitle.setFont(font);
 		
 		// Text Fields
 		input1 = new JTextField();
 		
 		input2 = new JTextField();
 		
+		// Panels
+		tabPane = new JTabbedPane();
+		resultsPane = new JPanel();
+		resultsPane.add(resultsTitle);
 		
-		// Calculate and set size to 60% of screen
+		ratioPane = new JPanel();
+		ratioPane.add(ratioTitle);
+		
+		
+		// Calculate and set size to 40% of screen
 		Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
-		int width = (int) (size.width * .6);
-		int height = (int) (size.height * .6);
+		int width = (int) (size.width * .4);
+		int height = (int) (size.height * .4);
 		setSize(width,height);
 		setLocationRelativeTo(null);
 		
-		// Set visible
+		// Add components and set visible
+		add(tabPane);
+		tabPane.addTab("Ratio", ratioPane);
+		tabPane.addTab("History", resultsPane);
+		
+		//addComponents(getContentPane());
 		setVisible(true);
 	}
 	
-	// Helper method that adds components to fram
+	// Helper method that adds components to frame
 	private void addComponents(Container pane) {
-		// Create Layout
-		//TODO Is box layout good?
-		pane.setLayout(new BoxLayout(pane, BoxLayout.Y_AXIS));
-		// Add components
+		
 	}
 	
 }
