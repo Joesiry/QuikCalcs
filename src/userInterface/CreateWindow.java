@@ -4,7 +4,7 @@ package userInterface;
  */
 import javax.swing.*;
 
-import java.awt.Container;
+//import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
@@ -68,11 +68,6 @@ public class CreateWindow extends JFrame {
 		
 		//addComponents(getContentPane());
 		setVisible(true);
-	}
-	
-	// Helper method that adds components to frame
-	private void addComponents(Container pane) {
-		
 	}
 	
 }
