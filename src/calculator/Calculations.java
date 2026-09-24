@@ -7,7 +7,7 @@ public class Calculations {
 	
 	public static String[] ratio(double firNum, double secNum) {
 		// results holds the values of every calculation
-		String[] results = new String[4];
+		String[] results = new String[2];
 		
 		// Ensures the first number is smaller than the second to simplify math
 		// TODO Possibly replace with a check before the numbers are passed to ratio?
@@ -30,8 +30,8 @@ public class Calculations {
 		// Simple ratio calculation, 1:x
 		results[1] = "1:"+String.format("%.3f", secNum/firNum);
 		
-		System.out.println("Answer 1 = " + results[0]);
-		System.out.println("Answer 2 = " + results[1]);
+		//System.out.println("Answer 1 = " + results[0]);
+		//System.out.println("Answer 2 = " + results[1]);
 		return results;
 	}
 	

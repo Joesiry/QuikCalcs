@@ -13,13 +13,15 @@ public class CreateWindow extends JFrame {
 	
 	// Initialize frame contents
 	JTabbedPane tabPane;
-	JPanel ratioPane, resultsPane;
+	JPanel ratioPane, resultsPane, inputPane;
 	JButton calculate;
-	JLabel results, ratioTitle, resultsTitle;
+	JLabel results, ratioTitle, resultsTitle, inputTitle;
 	JTextField input1, input2;
 	
 	// Fonts
 	private Font font = new Font("Comfortaa", Font.PLAIN, 20);
+	private Font smallFont = new Font("Comfortaa", Font.PLAIN, 12);
+	private Font bigFont = new Font("Comfortaa", Font.PLAIN, 35);
 	
 	
 	// Constructor
@@ -30,28 +32,43 @@ public class CreateWindow extends JFrame {
 		
 		
 		// Buttons
-		calculate = new JButton();
+		calculate = new JButton("Calculate Results");
+		calculate.setFont(bigFont);
 		
 		// Labels
-		results = new JLabel("Result: ");
+		results = new JLabel("Results: ");
 		results.setFont(font);
+		inputTitle = new JLabel("Input two numbers below and press \"Calculate Results\"");
+		inputTitle.setFont(font);
 		ratioTitle = new JLabel("Ratio Calculation");
 		ratioTitle.setFont(font);
-		resultsTitle = new JLabel("All Results: ");
+		resultsTitle = new JLabel("Previous Results: ");
 		resultsTitle.setFont(font);
 		
 		// Text Fields
-		input1 = new JTextField();
+		input1 = new JTextField("First number");
+		input1.setFont(bigFont);
 		
-		input2 = new JTextField();
+		input2 = new JTextField("Second number");
+		input2.setFont(bigFont);
 		
 		// Panels
 		tabPane = new JTabbedPane();
+		inputPane = new JPanel();
+		inputPane.setLayout(new BoxLayout(inputPane, BoxLayout.PAGE_AXIS));
+		inputPane.add(inputTitle);
+		inputPane.add(input1);
+		inputPane.add(input2);
+		inputPane.add(calculate);
+		
+		
 		resultsPane = new JPanel();
 		resultsPane.add(resultsTitle);
 		
+		
 		ratioPane = new JPanel();
 		ratioPane.add(ratioTitle);
+		
 		
 		
 		// Calculate and set size to 40% of screen
@@ -63,6 +80,7 @@ public class CreateWindow extends JFrame {
 		
 		// Add components and set visible
 		add(tabPane);
+		tabPane.addTab("Inputs", inputPane);
 		tabPane.addTab("Ratio", ratioPane);
 		tabPane.addTab("History", resultsPane);
 		
