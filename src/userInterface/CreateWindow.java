@@ -10,6 +10,8 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 public class CreateWindow extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
@@ -51,9 +53,14 @@ public class CreateWindow extends JFrame {
 		// Text Fields
 		input1 = new JTextField("First number");
 		input1.setFont(bigFont);
+		input1.addActionListener(new calculateAction());
+		input1.addKeyListener(new keyInput());
+		
 		
 		input2 = new JTextField("Second number");
 		input2.setFont(bigFont);
+		input2.addActionListener(new calculateAction());
+		input2.addKeyListener(new keyInput());
 		
 		// Panels
 		tabPane = new JTabbedPane();
@@ -91,6 +98,7 @@ public class CreateWindow extends JFrame {
 		setVisible(true);
 	}
 	
+	// Action listener for when calculate button is pressed
 	private class calculateAction implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent event) {
@@ -103,7 +111,8 @@ public class CreateWindow extends JFrame {
 				// All complete
 				calculate.setText("Calculations complete!");
 				System.out.println("Calculations complete");
-			} catch (Exception ex) { // Fall back if no expected exceptions are caught
+			} catch (Exception ex) { 
+				// Fall back if no expected exceptions are caught
 				System.out.print("Error: No expected exceptions caught.");
 				calculate.setText("Unexpected error, please check input");
 				return;
@@ -111,6 +120,26 @@ public class CreateWindow extends JFrame {
 			
 		}
 		
+	}
+	
+	// Key listener for when user types inside input fields
+	private class keyInput implements KeyListener{
+
+		@Override
+		public void keyTyped(KeyEvent e) {
+			// Resets calculate button text to reflect new input
+			calculate.setText("Calculate Results");
+		}
+
+		@Override
+		public void keyPressed(KeyEvent e) {
+			
+		}
+
+		@Override
+		public void keyReleased(KeyEvent e) {
+			
+		}
 	}
 	
 }
