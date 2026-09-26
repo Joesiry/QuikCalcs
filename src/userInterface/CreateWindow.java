@@ -8,6 +8,8 @@ import javax.swing.*;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 public class CreateWindow extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
@@ -34,6 +36,7 @@ public class CreateWindow extends JFrame {
 		// Buttons
 		calculate = new JButton("Calculate Results");
 		calculate.setFont(bigFont);
+		calculate.addActionListener(new calculateAction());
 		
 		// Labels
 		results = new JLabel("Results: ");
@@ -86,6 +89,28 @@ public class CreateWindow extends JFrame {
 		
 		//addComponents(getContentPane());
 		setVisible(true);
+	}
+	
+	private class calculateAction implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent event) {
+			System.out.println("Performing calculations...");
+			
+			// TODO Insert calls to all calculations here
+			try {
+				
+				
+				// All complete
+				calculate.setText("Calculations complete!");
+				System.out.println("Calculations complete");
+			} catch (Exception ex) { // Fall back if no expected exceptions are caught
+				System.out.print("Error: No expected exceptions caught.");
+				calculate.setText("Unexpected error, please check input");
+				return;
+			}
+			
+		}
+		
 	}
 	
 }
