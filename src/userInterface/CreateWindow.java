@@ -3,7 +3,7 @@ package userInterface;
  * Class initializes the UI and elements, also updating them as called.
  */
 import javax.swing.*;
-
+import calculator.Calculations;
 //import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -15,7 +15,7 @@ import java.awt.event.KeyListener;
 public class CreateWindow extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
-	// Initialize frame contents
+	// Declare frame contents
 	JTabbedPane tabPane;
 	JPanel ratioPane, resultsPane, inputPane;
 	JButton calculate;
@@ -106,14 +106,26 @@ public class CreateWindow extends JFrame {
 			
 			// TODO Insert calls to all calculations here
 			try {
-				
+				double firNum = Double.parseDouble(input1.getText());
+				double secNum = Double.parseDouble(input2.getText());
+				String[] results = Calculations.ratio(firNum, secNum);
 				
 				// All complete
 				calculate.setText("Calculations complete!");
 				System.out.println("Calculations complete");
+				
+			} catch (NumberFormatException ex) {
+				// Format of numbers is invalid (contains a letter or character)
+				System.out.println("Invalid number input.");
+				calculate.setText("Please enter a valid number");
+			} catch (NullPointerException ex) {
+				// No text in input boxes
+				System.out.println("No input in one or more fields.");
+				calculate.setText("Please enter numbers");
+				return;
 			} catch (Exception ex) { 
 				// Fall back if no expected exceptions are caught
-				System.out.print("Error: No expected exceptions caught.");
+				System.out.println("Error: No expected exceptions caught.");
 				calculate.setText("Unexpected error, please check input");
 				return;
 			}

@@ -25,7 +25,7 @@ public class Calculations {
 			tempSec = tempFir % tempSec;
 			tempFir = tempNum;
 		}
-		results[0] = (firNum/tempFir)+":"+(secNum/tempFir);
+		results[0] = ((int)(firNum/tempFir))+":"+((int)(secNum/tempFir));
 		
 		// Simple ratio calculation, 1:x
 		results[1] = "1:"+String.format("%.3f", secNum/firNum);
