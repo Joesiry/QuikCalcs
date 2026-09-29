@@ -15,22 +15,26 @@ import java.awt.event.KeyListener;
 public class CreateWindow extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
+	int resultCounter;
 	// Declare frame contents
 	JTabbedPane tabPane;
-	JPanel ratioPane, resultsPane, inputPane;
+	JPanel ratioPane, historyPane, inputPane;
 	JButton calculate;
-	JLabel results, ratioTitle, resultsTitle, inputTitle, ratioDescription;
+	JLabel results, ratioTitle, historyTitle, inputTitle, ratioDescription;
 	JTextField input1, input2;
-	JTable ratioResults;
+	JTable historyTable, ratioResults;
 	
 	// Fonts
 	private Font font = new Font("Comfortaa", Font.PLAIN, 20);
-	private Font smallFont = new Font("Comfortaa", Font.PLAIN, 12);
+	private Font smallFont = new Font("Comfortaa", Font.PLAIN, 12); // TODO Remove font if not used
 	private Font bigFont = new Font("Comfortaa", Font.PLAIN, 35);
 	
 	
 	// Constructor
 	public CreateWindow() {
+		// Set global variables
+		resultCounter = 0;
+		
 		// Set frame parameters
 		setTitle("QuikCalcs");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -50,8 +54,8 @@ public class CreateWindow extends JFrame {
 		ratioTitle.setFont(bigFont);
 		ratioDescription = new JLabel("Results are (in order): Smallest common divisor, simple 1:x");
 		ratioDescription.setFont(font);
-		resultsTitle = new JLabel("Previous Results: ");
-		resultsTitle.setFont(font);
+		historyTitle = new JLabel("Previous Numbers: ");
+		historyTitle.setFont(bigFont);
 		
 		// Text Fields
 		input1 = new JTextField("First number");
@@ -65,6 +69,10 @@ public class CreateWindow extends JFrame {
 		input2.addKeyListener(new keyInput());
 		
 		// Tables
+		historyTable = new JTable(10, 1);
+		historyTable.setFont(font);
+		historyTable.setRowHeight(20);;
+		
 		ratioResults = new JTable(3, 1);
 		ratioResults.setFont(bigFont);
 		ratioResults.setRowHeight(35);
@@ -79,9 +87,10 @@ public class CreateWindow extends JFrame {
 		inputPane.add(calculate);
 		
 		
-		resultsPane = new JPanel();
-		resultsPane.setLayout(new BoxLayout(resultsPane, BoxLayout.PAGE_AXIS));
-		resultsPane.add(resultsTitle);
+		historyPane = new JPanel();
+		historyPane.setLayout(new BoxLayout(historyPane, BoxLayout.PAGE_AXIS));
+		historyPane.add(historyTitle);
+		historyPane.add(historyTable);
 		
 		
 		ratioPane = new JPanel();
@@ -103,7 +112,7 @@ public class CreateWindow extends JFrame {
 		add(tabPane);
 		tabPane.addTab("Inputs", inputPane);
 		tabPane.addTab("Ratio", ratioPane);
-		tabPane.addTab("History", resultsPane);
+		tabPane.addTab("History", historyPane);
 		
 		//addComponents(getContentPane());
 		setVisible(true);
@@ -127,6 +136,8 @@ public class CreateWindow extends JFrame {
 				}
 				
 				// All complete
+				historyTable.setValueAt((firNum + ":" + secNum), resultCounter, 0);
+				resultCounter++;
 				calculate.setText("Calculations complete!");
 				System.out.println("Calculations complete");
 				
