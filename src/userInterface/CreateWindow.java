@@ -19,8 +19,8 @@ public class CreateWindow extends JFrame {
 	JTabbedPane tabPane;
 	JPanel ratioPane, resultsPane, inputPane;
 	JButton calculate;
-	JLabel results, ratioTitle, resultsTitle, inputTitle;
-	JTextField input1, input2;
+	JLabel results, ratioTitle, resultsTitle, inputTitle, ratioDescription;
+	JTextField input1, input2, ratioResults;
 	
 	// Fonts
 	private Font font = new Font("Comfortaa", Font.PLAIN, 20);
@@ -46,7 +46,9 @@ public class CreateWindow extends JFrame {
 		inputTitle = new JLabel("Input two numbers below and press \"Calculate Results\"");
 		inputTitle.setFont(font);
 		ratioTitle = new JLabel("Ratio Calculation");
-		ratioTitle.setFont(font);
+		ratioTitle.setFont(bigFont);
+		ratioDescription = new JLabel("Results are (in order): Smallest common divisor, simple 1:x");
+		ratioDescription.setFont(font);
 		resultsTitle = new JLabel("Previous Results: ");
 		resultsTitle.setFont(font);
 		
@@ -56,11 +58,16 @@ public class CreateWindow extends JFrame {
 		input1.addActionListener(new calculateAction());
 		input1.addKeyListener(new keyInput());
 		
-		
 		input2 = new JTextField("Second number");
 		input2.setFont(bigFont);
 		input2.addActionListener(new calculateAction());
 		input2.addKeyListener(new keyInput());
+		
+		ratioResults = new JTextField("Results will appear here");
+		ratioResults.setFont(bigFont);
+		ratioResults.setEditable(false);
+		ratioResults.setBorder(null);
+		ratioResults.setOpaque(false);
 		
 		// Panels
 		tabPane = new JTabbedPane();
@@ -73,18 +80,22 @@ public class CreateWindow extends JFrame {
 		
 		
 		resultsPane = new JPanel();
+		resultsPane.setLayout(new BoxLayout(resultsPane, BoxLayout.PAGE_AXIS));
 		resultsPane.add(resultsTitle);
 		
 		
 		ratioPane = new JPanel();
+		ratioPane.setLayout(new BoxLayout(ratioPane, BoxLayout.PAGE_AXIS));
 		ratioPane.add(ratioTitle);
+		ratioPane.add(ratioDescription);
+		ratioPane.add(ratioResults);
 		
 		
 		
 		// Calculate and set size to 40% of screen
 		Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
-		int width = (int) (size.width * .4);
-		int height = (int) (size.height * .4);
+		int width = (int) (size.width * .5);
+		int height = (int) (size.height * .5);
 		setSize(width,height);
 		setLocationRelativeTo(null);
 		
@@ -108,7 +119,10 @@ public class CreateWindow extends JFrame {
 			try {
 				double firNum = Double.parseDouble(input1.getText());
 				double secNum = Double.parseDouble(input2.getText());
-				String[] results = Calculations.ratio(firNum, secNum);
+				String[] ratioOutput = Calculations.ratio(firNum, secNum);
+				
+				// TODO Update all tabs with calculated results
+				ratioResults.setText("Results:  " + ratioOutput[0] + ", " + ratioOutput[1]);
 				
 				// All complete
 				calculate.setText("Calculations complete!");
