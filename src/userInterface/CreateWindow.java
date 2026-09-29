@@ -20,7 +20,8 @@ public class CreateWindow extends JFrame {
 	JPanel ratioPane, resultsPane, inputPane;
 	JButton calculate;
 	JLabel results, ratioTitle, resultsTitle, inputTitle, ratioDescription;
-	JTextField input1, input2, ratioResults;
+	JTextField input1, input2;
+	JTable ratioResults;
 	
 	// Fonts
 	private Font font = new Font("Comfortaa", Font.PLAIN, 20);
@@ -63,11 +64,10 @@ public class CreateWindow extends JFrame {
 		input2.addActionListener(new calculateAction());
 		input2.addKeyListener(new keyInput());
 		
-		ratioResults = new JTextField("Results will appear here");
+		// Tables
+		ratioResults = new JTable(3, 1);
 		ratioResults.setFont(bigFont);
-		ratioResults.setEditable(false);
-		ratioResults.setBorder(null);
-		ratioResults.setOpaque(false);
+		ratioResults.setRowHeight(35);
 		
 		// Panels
 		tabPane = new JTabbedPane();
@@ -122,7 +122,9 @@ public class CreateWindow extends JFrame {
 				String[] ratioOutput = Calculations.ratio(firNum, secNum);
 				
 				// TODO Update all tabs with calculated results
-				ratioResults.setText("Results:  " + ratioOutput[0] + ", " + ratioOutput[1]);
+				for(int i = 0; i < ratioOutput.length; i++) {
+					ratioResults.setValueAt(ratioOutput[i], i, 0);
+				}
 				
 				// All complete
 				calculate.setText("Calculations complete!");
@@ -139,7 +141,7 @@ public class CreateWindow extends JFrame {
 				return;
 			} catch (Exception ex) { 
 				// Fall back if no expected exceptions are caught
-				System.out.println("Error: No expected exceptions caught.");
+				System.out.println("Error: No expected exceptions caught.\n" + ex);
 				calculate.setText("Unexpected error, please check input");
 				return;
 			}
