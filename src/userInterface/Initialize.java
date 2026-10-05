@@ -1,15 +1,11 @@
 package userInterface;
 
-import calculator.Calculations;
-
 public class Initialize {
 
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
+		// Initializes window GUI for user
 		CreateWindow window = new CreateWindow();
-		
-		// TODO Delete test code
-		Calculations.ratio(1.5,20);
 	}
 
 }

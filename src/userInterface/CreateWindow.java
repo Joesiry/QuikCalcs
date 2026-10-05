@@ -31,7 +31,7 @@ public class CreateWindow extends JFrame {
 	
 	
 	// Constructor
-	public CreateWindow() {
+	protected CreateWindow() {
 		// Set global variables
 		resultCounter = 0;
 		
@@ -71,7 +71,7 @@ public class CreateWindow extends JFrame {
 		// Tables
 		historyTable = new JTable(10, 1);
 		historyTable.setFont(font);
-		historyTable.setRowHeight(20);;
+		historyTable.setRowHeight(25);;
 		
 		ratioResults = new JTable(3, 1);
 		ratioResults.setFont(bigFont);
@@ -101,7 +101,7 @@ public class CreateWindow extends JFrame {
 		
 		
 		
-		// Calculate and set size to 40% of screen
+		// Calculate and set size to 50% of screen
 		Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
 		int width = (int) (size.width * .5);
 		int height = (int) (size.height * .5);
@@ -135,20 +135,27 @@ public class CreateWindow extends JFrame {
 					ratioResults.setValueAt(ratioOutput[i], i, 0);
 				}
 				
-				// All complete
-				historyTable.setValueAt((firNum + ":" + secNum), resultCounter, 0);
+				// Save inputs to history and mark as complete
 				resultCounter++;
+				if(resultCounter > 10) { // No more than 10 results shown at a time
+					resultCounter = 10;
+				}
+				for(int i = resultCounter-1; i > 0; i--) { // Moves previous inputs down in the table
+					historyTable.setValueAt((String) historyTable.getValueAt(i-1, 0), i, 0);
+				}
+				historyTable.setValueAt((firNum + ":" + secNum), 0, 0); // The most recent input is at the top
 				calculate.setText("Calculations complete!");
 				System.out.println("Calculations complete");
 				
 			} catch (NumberFormatException ex) {
-				// Format of numbers is invalid (contains a letter or character)
+				// Format of numbers is invalid (likely contains a letter or character)
 				System.out.println("Invalid number input.");
 				calculate.setText("Please enter a valid number");
+				return;
 			} catch (NullPointerException ex) {
-				// No text in input boxes
-				System.out.println("No input in one or more fields.");
-				calculate.setText("Please enter numbers");
+				// Input boxes error
+				System.out.println("Input boxes missing or null.");
+				calculate.setText("Unexpected error, please contact support");
 				return;
 			} catch (Exception ex) { 
 				// Fall back if no expected exceptions are caught

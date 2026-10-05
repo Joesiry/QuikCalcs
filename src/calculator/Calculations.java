@@ -35,8 +35,4 @@ public class Calculations {
 		return results;
 	}
 	
-	// TODO Helper method that saves results where they can be displayed in "History" tab
-	private static void saveHistory(String[] results) {
-		
-	}
 }
